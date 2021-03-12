@@ -51,17 +51,25 @@ const playAudio = (e) => {
 };
 
 // Keyboard
+let repeatSound = true;
 window.addEventListener('keydown', (e) => {
+    if (e.repeat != undefined) {
+        repeatSound = !e.repeat;
+    }
+    if (!repeatSound) return;
+    repeatSound = false;
+
     const key = document.querySelector(`.piano-key[data-letter="${e.code.slice(-1)}"]`);
-    key.classList.add('piano-key-active');
     if (key) {
         const audio = document.querySelector(`audio[data-note="${key.dataset.note}"]`);
+        key.classList.add('piano-key-active');
         audio.currentTime = 0;
         audio.play();
     }
 });
 
 window.addEventListener('keyup', (e) => {
+    repeatSound = true;
     const key = document.querySelector(`.piano-key[data-letter="${e.code.slice(-1)}"]`);
     key.classList.remove('piano-key-active');
 });
