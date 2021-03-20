@@ -71,7 +71,9 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('keyup', (e) => {
     repeatSound = true;
     const key = document.querySelector(`.piano-key[data-letter="${e.code.slice(-1)}"]`);
-    key.classList.remove('piano-key-active');
+    if (key) {
+        key.classList.remove('piano-key-active');
+    }
 });
 
 // Fullscreen mode
